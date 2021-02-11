@@ -1,16 +1,31 @@
+
 {
-   "compilerOptions": {
-      "lib": [
-         "es5",
-         "es6"
-      ],
-      "target": "es5",
-      "module": "commonjs",
-      "moduleResolution": "node",
-      "outDir": "./build",
-      "emitDecoratorMetadata": true,
-      "experimentalDecorators": true,
-      "sourceMap": true,
-      "esModuleInterop": true,
-   }
+  "compilerOptions": {
+    // https://www.typescriptlang.org/tsconfig
+    "lib": ["es5", "es6"],
+    "target": "es5",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "outDir": "./build",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    // Additions
+    "esModuleInterop": true,
+    // Strict stuff
+    // "strict": true, // you can set this to true and it will enable all of these 6 below
+    "noImplicitAny": true, //each time you have a vraible you have to give it a type errors out
+    "strictNullChecks": true, //variable can't be null
+    "strictFunctionTypes": true, //every fucntion has to have a type
+    "strictBindCallApply": true,
+    // "strictPropertyInitialization": true,
+    "noImplicitThis": true, //specify this
+    // Extra
+    "alwaysStrict": true,  
+    "noUnusedLocals": true, //can't have variables and not use them
+    "noUnusedParameters": true, //can't have functions and not use them
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "resolveJsonModule": true
+  }
 }
