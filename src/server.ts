@@ -1,6 +1,7 @@
 import 'reflect-metadata';
 import { createConnection } from 'typeorm';
 import cookieParser from 'cookie-parser';
+import cors from 'cors'
 import dotenv from 'dotenv';
 dotenv.config()
 
@@ -22,6 +23,15 @@ app.use(express.json())
 app.use(morgan('dev'))
 app.use(trim)
 app.use(cookieParser())
+//this allows us to write cookies , 
+//origin is where cookies can be written
+//options allows to send a request before
+// a request
+app.use(cors({
+    credentials: true,
+    origin: process.env.ORIGIN,
+    optionsSuccessStatus: 200
+}))
 
 app.get('/', (_, res) => res.send('Hello World'))
 app.use('/api/auth', authRoutes)

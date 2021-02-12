@@ -1,10 +1,20 @@
 import { Request, Response, Router } from "express";
 import { validate, isEmpty } from "class-validator";
-import  User  from "../entities/User";
+import User from "../entities/User";
 import auth from "../middlware/auth"
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import cookie from 'cookie'
+
+
+
+const mapErrors = (errors: Object[]) => {
+    //Returns
+    return errors.reduce((prev: any, err: any) => {
+        prev[err.property] = Object.entries(err.constraints)[0][1]
+        return prev
+    }, {})
+}
 
 
 const register = async (req: Request, res: Response) => {
@@ -16,16 +26,18 @@ const register = async (req: Request, res: Response) => {
         const usernameUserExists = await User.findOne({ username })
         if (emailUserExists) errors.email = 'Email is already taken'
         if (usernameUserExists) errors.username = 'Username is already taken'
-        if (Object.keys(errors).length > 0) return res.status(400).json(errors);
 
-
-        //created user
-        //return user
+        if (Object.keys(errors).length > 0) {
+            return res.status(400).json(errors);
+        }
         const user = new User({ email, username, password })
         errors = await validate(user)
-        if (errors.length > 0) return res.status(400).json({ errors })
-        await user.save()
+        if (errors.length > 0) {
+            return res.status(400).json(mapErrors(errors))
+        }
 
+
+        await user.save();
         return res.json(user)
     } catch (err) {
         console.log(err)
@@ -40,10 +52,10 @@ const login = async (req: Request, res: Response) => {
 
         if (isEmpty(username)) errors.username = 'Username must not be empty'
         if (isEmpty(password)) errors.password = 'Password must not be empty'
-        if (Object.keys(errors).length > 0) return res.status(400).json({ errors })
+        if (Object.keys(errors).length > 0) return res.status(400).json(errors)
 
         const user = await User.findOne({ username })
-        if (!user) return res.status(404).json({ error: 'User not found' })
+        if (!user) return res.status(404).json({ username: 'User not found' })
 
 
         //hashes input and compares new password
@@ -64,7 +76,7 @@ const login = async (req: Request, res: Response) => {
 
     } catch (err) {
         console.log(err)
-        return res.json({ error: "Something went wrong"})
+        return res.json({ error: "Something went wrong" })
     }
 
 }
