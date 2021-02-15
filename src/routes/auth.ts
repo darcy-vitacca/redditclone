@@ -2,6 +2,7 @@ import { Request, Response, Router } from "express";
 import { validate, isEmpty } from "class-validator";
 import User from "../entities/User";
 import auth from "../middlware/auth"
+import user from "../middlware/user"
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import cookie from 'cookie'
@@ -101,8 +102,8 @@ const logout = (_: Request, res: Response) => {
 const router = Router();
 router.post('/register', register)
 router.post('/login', login)
-router.get('/me', auth, me)
-router.get('/logout', auth, logout)
+router.get('/me', user, auth, me)
+router.get('/logout', user, auth, logout)
 
 
 export default router

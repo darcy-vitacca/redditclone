@@ -1,7 +1,7 @@
 import {
     Entity as TOEntity,
     Column,
-    // Index,
+    Index,
      ManyToOne, 
      JoinColumn, 
      OneToMany
@@ -18,7 +18,7 @@ export default class Sub extends Entity {
         super()
         Object.assign(this, sub)
     }
-    //   @Index()
+      @Index()
     @Column({ unique: true })
     name: string
 

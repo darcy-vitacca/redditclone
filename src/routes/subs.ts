@@ -2,6 +2,7 @@ import { Request, Response, Router } from "express";
 import { getRepository } from 'typeorm'
 import User from "../entities/User";
 import auth from "../middlware/auth";
+import user from "../middlware/user";
 import { isEmpty } from "class-validator";
 import Sub from "../entities/Sub";
 
@@ -38,6 +39,6 @@ const createSub = async (req: Request, res: Response) => {
 }
 
 const router = Router()
-router.post('/', auth, createSub)
+router.post('/',user,  auth, createSub)
 
 export default router

@@ -8,6 +8,7 @@ dotenv.config()
 import authRoutes from './routes/auth'
 import postRoutes from './routes/post'
 import subRoutes from './routes/subs'
+import miscRoutes from './routes/misc'
 
 import express from 'express'
 import morgan from 'morgan'
@@ -33,10 +34,11 @@ app.use(cors({
     optionsSuccessStatus: 200
 }))
 
-app.get('/', (_, res) => res.send('Hello World'))
+// app.get('/', (_, res) => res.send('Hello World'))
 app.use('/api/auth', authRoutes)
 app.use('/api/posts', postRoutes)
 app.use('/api/subs', subRoutes)
+app.use('/api/misc', miscRoutes)
 
 app.listen(PORT, async () => {
     console.log(`Server running at http://localhost:${PORT}`)

@@ -1,9 +1,9 @@
 {
-   "type": "mysql",
+   "type": "postgres",
    "host": "localhost",
-   "port": 3306,
-   "username": "root",
-   "password": "root1234",
+   "port": 5432,
+   "username": "postgres",
+   "password": "test",
    "database": "reddit",
    "synchronize": false,
    "logging": false,
@@ -16,6 +16,7 @@
    "subscribers": [
       "src/subscribers/**/*.ts"
    ],
+   "seeds": ["src/seeds/**/*{.ts,.js}"],
    "cli": {
       "entitiesDir": "src/entities",
       "migrationsDir": "src/migrations",

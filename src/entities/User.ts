@@ -4,6 +4,7 @@ import bcrypt from 'bcrypt'
 import { Exclude } from 'class-transformer'
 import Entity from './Entity'
 import Post from "./Post";
+import Vote from "./Vote";
 
 @TOEntity('users')
 export default class User extends Entity {
@@ -13,7 +14,7 @@ export default class User extends Entity {
         Object.assign(this, user)
     }
 
-    // @Index()
+    @Index()
     @IsEmail(undefined, { message: 'Must be a valid email address' })
     @Length(1, 255, { message: 'Email is empty' })
     @Column({ unique: true })
@@ -21,7 +22,7 @@ export default class User extends Entity {
 
 
 
-    // @Index()
+    @Index()
     @Length(6, 255, { message: 'Must be 6 characters or more without spaces.' })
     @Column({ unique: true })
     username: string
@@ -38,6 +39,9 @@ export default class User extends Entity {
 
     @OneToMany(() => Post, post => post.user)
     posts: Post[];
+
+    @OneToMany(() => Vote, vote => vote.user)
+    votes: Vote[];
 
     @BeforeInsert()
     async hashPassword() {
