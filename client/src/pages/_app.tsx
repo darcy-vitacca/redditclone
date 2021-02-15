@@ -2,7 +2,7 @@ import Axios from "axios";
 import { AppProps } from "next/app";
 import "../styles/tailwind.css";
 import "../styles/icons.css";
-import Navbar from "../components/Navbar";
+import Navbar from "../components/navbar";
 import {useRouter} from 'next/router';
 import { AuthProvider} from '../context/auth'
 
