@@ -47,9 +47,11 @@ const getPost = async (req: Request, res: Response) => {
     const post = await Post.findOneOrFail(
       { identifier, slug },
       {
-        relations: ["sub", "comments"],
+        relations: ["sub", "comments","votes"],
       }
     );
+    if(res.locals.user) post.setUserVote(res.locals.user)
+    
     return res.json(post);
   } catch (err) {
     console.log(err);
@@ -63,6 +65,8 @@ const commentOnPost = async (req: Request, res: Response) => {
   try {
     const post = await Post.findOneOrFail({ identifier, slug })
     const comment = new Comment({ body, user: res.locals.user, post })
+
+    
     await comment.save()
 
     return res.json(comment);
@@ -72,10 +76,11 @@ const commentOnPost = async (req: Request, res: Response) => {
   }
 }
 
+
 const router = Router();
 router.post('/', user, auth, createPost)
 router.get('/', user, getPosts)
-router.get('/:identifier/:slug', getPost)
+router.get('/:identifier/:slug', user, getPost)
 router.post('/:identifier/:slug/comments', user, auth, commentOnPost)
 
 

@@ -12,7 +12,7 @@ export interface Post {
     voteScore?: number
     commentCount?: number
     userVote?: number
-
+    sub?: Sub
 }
 
 export interface User {
@@ -20,5 +20,22 @@ export interface User {
     email: string
     createdAt: string
     updatedAt: string
-    
+
+
+}
+
+export interface Sub {
+    createdAt: string
+    updatedAt: string
+    name: string
+    title: string
+    description: string
+    imageUrn: string
+    bannerUrn: string
+    username: string
+    posts: Post[]
+    //virtuals
+    imageUrl: string
+    bannerUrl: string
+    postCount?: number
 }

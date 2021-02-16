@@ -17,7 +17,7 @@ import trim from './middlware/trim'
 const app = express()
 const PORT = process.env.PORT
 
-
+app.use(express.static('public'))
 //test
 //to parse the json data
 app.use(express.json())

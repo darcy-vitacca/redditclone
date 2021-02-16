@@ -5,6 +5,7 @@ import classNames from "classnames";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import Axios from "axios";
+import ActionButton from "./ActionButton"
 
 dayjs.extend(relativeTime);
 
@@ -12,13 +13,7 @@ interface PostCardProps {
   post: Post;
 }
 
-const ActionButton = ({ children }) => {
-  return (
-    <div className="px-1 py-1 mr-1 text-xs text-gray-500 rounded cursor-pointer hover:bg-gray-200">
-      {children}
-    </div>
-  );
-};
+
 export default function postCard({
   post: {
     identifier,
@@ -34,7 +29,7 @@ export default function postCard({
     username,
   },
 }: PostCardProps) {
-  const vote = async (value) => {
+  const vote = async (value: number) => {
     try {
       const res = await Axios.post("/misc/vote", {
         identifier,
@@ -48,7 +43,7 @@ export default function postCard({
 
   return (
     <div className="flex mb-4 bg-white rounded" key={identifier}>
-      {/* Vote Section */}
+      {/* Vote Section */}  
       <div className="w-10 py-3 text-center bg-gray-200 rounded-l">
         {/* Upvote */}
         <div
@@ -80,16 +75,20 @@ export default function postCard({
       <div className="w-full p-2">
         <div className="flex items-center">
           <Link href={`/r/${subName}`}>
-            <Fragment>
+          
               <img
                 src="https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y"
                 className="w-6 h-6 mr-1 rounded-full cursor-pointer"
               />
-              <a className="text-xs font-bold cursor-pointer hover:underline ">
+            
+      
+          </Link>
+          <Link href={`/r/${subName}`}> 
+          <a className="text-xs font-bold cursor-pointer hover:underline ">
                 /r/{subName}
               </a>
-            </Fragment>
           </Link>
+          
           <p className="text-xs text-gray-600">
             {" "}
             <span className="mx-1">•</span>Posted by{" "}
