@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import { AuthProvider } from "../context/auth";
 import useSWR, { SWRConfig } from "swr";
 
-Axios.defaults.baseURL = "http://localhost:5000/api";
+Axios.defaults.baseURL = `${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/api`;
 Axios.defaults.withCredentials = true; // this always sends cookie on client side
 
 const fetcher = async (url: string) => {

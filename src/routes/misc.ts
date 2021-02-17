@@ -5,8 +5,8 @@ import Post from '../entities/Post'
 import Sub from '../entities/Sub'
 import User from '../entities/User'
 import Vote from '../entities/Vote'
-import auth from '../middlware/auth'
-import user from '../middlware/user'
+import auth from '../middleware/auth'
+import user from '../middleware/user'
 
 const vote = async (req: Request, res: Response) => {
     const { identifier, slug, commentIdentifier, value } = req.body

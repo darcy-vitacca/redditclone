@@ -9,10 +9,11 @@ import authRoutes from './routes/auth'
 import postRoutes from './routes/post'
 import subRoutes from './routes/subs'
 import miscRoutes from './routes/misc'
+import userRoutes from './routes/users'
 
 import express from 'express'
 import morgan from 'morgan'
-import trim from './middlware/trim'
+import trim from './middleware/trim'
 
 const app = express()
 const PORT = process.env.PORT
@@ -39,6 +40,7 @@ app.use('/api/auth', authRoutes)
 app.use('/api/posts', postRoutes)
 app.use('/api/subs', subRoutes)
 app.use('/api/misc', miscRoutes)
+app.use('/api/users', userRoutes)
 
 app.listen(PORT, async () => {
     console.log(`Server running at http://localhost:${PORT}`)
